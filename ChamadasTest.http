@@ -1,1 +1,5 @@
 get https://services.odata.org/V2/OData/OData.svc/Categories?$top=1
+
+###
+
+get https://services.odata.org/V2/OData/OData.svc/Categories(0)

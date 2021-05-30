@@ -1,6 +1,9 @@
 <mvc:View
     controllerName="com.ui.odataproject02.controller.Main"
     xmlns:mvc="sap.ui.core.mvc"
+	xmlns:smartFilterBar="sap.ui.comp.smartfilterbar"
+	xmlns:smartTable="sap.ui.comp.smarttable"
+	xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
     displayBlock="true"
     xmlns="sap.m"
 >
@@ -11,13 +14,47 @@
 					<content>
 						<FlexBox >
 							<Input id="mainTxtNome"  width="95%" placeholder="{i18n>mainTxtNome}" />
-							<Button id="mainBtnShowTxtNome" text="Ok" press="onMainBtnShowTxtNome" />
+							<Button id="mainBtnShowTxtNome" text="{i18n>mainBtnShowTxtNome}" press="onMainBtnShowTxtNome" />
 						</FlexBox>
 
 						<FlexBox >
+							<Input id="mainInTextService" width="95%" placeholder="Type a number..." />
 							<Button id="mainBtnOData" text="Get OData" press="onMainBtnOData" />
-							<Input id="mainLblTextService" />
+							<Input id="mainInTextServiceReturn" width="95%" enabled="false" value="---"/>
 					    </FlexBox>
+
+						<!-- use this to make the table occupy the available screen height -->
+						<VBox fitContainer="true">
+							<smartFilterBar:SmartFilterBar id="smartFilterBar" entitySet="Categories" 
+								persistencyKey="SmartFilter_Explored" 
+								basicSearchFieldName="ID" 
+								enableBasicSearch="true" >
+								<smartFilterBar:controlConfiguration>
+									<smartFilterBar:ControlConfiguration key="ID">
+									<smartFilterBar:defaultFilterValues>
+											<smartFilterBar:SelectOption low="0">
+											</smartFilterBar:SelectOption>
+										</smartFilterBar:defaultFilterValues>
+									</smartFilterBar:ControlConfiguration>
+									<smartFilterBar:ControlConfiguration key="Name">
+										<smartFilterBar:defaultFilterValues>
+												<smartFilterBar:SelectOption low="">
+												</smartFilterBar:SelectOption>
+											</smartFilterBar:defaultFilterValues>
+										</smartFilterBar:ControlConfiguration>
+								</smartFilterBar:controlConfiguration>
+								<!-- layout data used to make the table growing but the filter bar fixed -->
+								<smartFilterBar:layoutData>
+									<FlexItemData shrinkFactor="0"/>
+								</smartFilterBar:layoutData>
+							</smartFilterBar:SmartFilterBar>
+							<smartTable:SmartTable id="LineItemsSmartTable" entitySet="Categories" smartFilterId="smartFilterBar" tableType="Table" useExportToExcel="true" beforeExport="onBeforeExport" useVariantManagement="true" useTablePersonalisation="true" header="Line Items" showRowCount="true" persistencyKey="SmartTableAnalytical_Explored" enableAutoBinding="true" class="sapUiResponsiveContentPadding" enableAutoColumnWidth="true" editTogglable="true" app:useSmartToggle="true">
+								<!-- layout data used to make the table growing but the filter bar fixed -->
+								<smartTable:layoutData>
+									<FlexItemData growFactor="1" baseSize="0%"/>
+								</smartTable:layoutData>
+							</smartTable:SmartTable>
+						</VBox>
 					</content>
 				</Page>
 			</pages>
