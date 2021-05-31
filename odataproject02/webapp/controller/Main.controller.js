@@ -42,7 +42,7 @@ sap.ui.define(
         }
       },
 
-      onMainBtnOData: function (oEvent) {
+      onMainBtnOData: function (oEvent) {        
         let lvServicePath = "/V2/OData/OData.svc/";
         let loModelService = new ODataModel(lvServicePath);
 
